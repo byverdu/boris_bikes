@@ -19,4 +19,5 @@ describe Bike do
 		expect(bike.fix!).to be false
 	end
 
+	
 end
