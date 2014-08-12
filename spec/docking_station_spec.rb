@@ -14,7 +14,6 @@ describe DockingStation do
 		station.dock(bike)
 		
 		expect(station.bike_count).to eq(1)
-
 	end
 
 

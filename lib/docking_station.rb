@@ -1,14 +1,15 @@
 class DockingStation
 
-	attr_accessor :bike_count
-
 	def initialize
-		@bike_count = 0
+		@bikes = []
 	end
-	
-	def dock(bike)
-		
-		@bike_count += 1 if bike
 
+	def bike_count
+		@bikes.count
 	end
+
+	def dock(bike)
+		@bikes << bike
+	end
+
 end
