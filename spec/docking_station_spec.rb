@@ -1,13 +1,13 @@
 require "docking_station"
+require 'bike_container_spec'
 
-describe DockingStation do
+describe(DockingStation) do
 
-	let(:station) {DockingStation.new(:capacity => 120)}
+	it_behaves_like "a bike container"
+	let(:station) {DockingStation.new(:capacity => 10)}
 
-	it "Should allow setting default capacity initialising" do
-		expect(station.capacity).to eq(120)
+	it "should allow setting default capacity initialising" do
+		expect(station.capacity).to eq(10)
 	end
 end
-
-
 

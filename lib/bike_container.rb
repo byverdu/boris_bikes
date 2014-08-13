@@ -1,6 +1,6 @@
 module BikeContainer
 
-	DEFAULT_CAPACITY = 120
+	DEFAULT_CAPACITY = 10
 
 	def bikes
 		@bikes ||= []
@@ -25,7 +25,7 @@ module BikeContainer
 		bikes << bike
 	end
 
-	def release(bike)
+	def release_a_bike(bike)
 		bikes.delete(bike)
 	end
 
