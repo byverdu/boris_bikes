@@ -9,8 +9,15 @@ class Garage
 			self.capacity = options.fetch(:capacity, capacity)
 	end
 
-	def accept_bikes(bike)
+	alias_method :collect, :dock  
+
+	def collect(bike)
+		
+		bikes << bike
+		
 		bike.fix!
 	end
+
+	
 
 end

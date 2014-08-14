@@ -1,3 +1,5 @@
+require_relative 'bike_container'
+
 class Person
 
 	def initialize(bike: nil)
