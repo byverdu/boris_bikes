@@ -1,58 +1,96 @@
-require 'bike'
 require 'bike_container'
 
-shared_examples "a bike container" do
+shared_examples 'a bike container' do
 
-	def fill_station(station)
-		station.capacity.times{station.dock(Bike.new)}
+	let(:container)       { described_class.new } # described_class is our model class
+	let(:working_bike)    { double :bike, broken?: false }
+	let(:broken_bike)     { double :bike, broken?: true}
+
+	def fill_container container
+		container.capacity.times{container.accept_bike(Bike.new)}
 	end
 
-	let(:bike)   {Bike.new           }
-	let(:station) {described_class.new}
-
-	it "should accept a bike" do
-		# we expect the station to have 0 bikes
-		expect(station.bike_count).to eq(0)
-		
-		station.dock(bike)
-
-		expect(station.bike_count).to eq(1)
+	
+	it "has no bikes when is initialized" do
+		expect(container.bikes).to eql []
 	end
 
-	it "should release a bike" do
-
-		station.dock(bike)
-
-		station.release_a_bike(bike)
-
-		expect(station.bike_count).to eq(0)
+	it "should have a default capacity" do
+		expect(container.capacity).to eq 20
 	end
 
-	it "should know when it's full" do
-
-		expect(station.full?).to be false
-
-		fill_station station
-
-		expect(station.full?).to be true
+	it 'can be set to have a custom capacity' do
+		container = described_class.new(capacity: 30)
+		expect(container.capacity).to eq 30
 	end
 
-	it "should not accept a bike if it's full" do
-
-		fill_station station
-
-		expect{station.dock(bike)}.to raise_error(RuntimeError)
+	it "should know how many bikes contains" do
+		container.accept_bike working_bike
+			
+		expect(container.count_bikes).to eql 1
 	end
 
-	it "should provide a list of all available bikes" do
-		
-		working_bike, broken_bike = Bike.new, Bike.new
-		
-		broken_bike.break!
+	it "should be able to dock a bike" do
+		container.accept_bike working_bike
 
-		station.dock(working_bike)
-		station.dock(broken_bike)
-
-		expect(station.available_bikes).to eq([working_bike])
+		expect(container.count_bikes).to eql 1
 	end
+
+	it "should be able to release a bike" do
+		container.accept_bike working_bike		
+
+		container.release_bike working_bike
+
+		expect(container.count_bikes).to eql 0
+	end
+
+	it "should be able to give a list of all working bikes" do
+		container.accept_bike working_bike
+		container.accept_bike broken_bike
+
+		expect(container.list_working_bikes).to eq([working_bike])
+	end
+
+	it "should be able to give a list of all broken bikes" do
+		container.accept_bike working_bike
+		container.accept_bike broken_bike
+
+		expect(container.list_broken_bikes).to eq([broken_bike])
+	end
+
+	it "should know when it is full" do
+		fill_container container
+
+		expect(container.full?).to be(true)
+	end
+
+	context "testing all common errors" do
+
+		it "should not accept a bike when is full" do
+			fill_container container
+
+			expect{container.accept_bike(working_bike)}.to raise_error(ReachCapacityError)
+		end
+
+		it "should not release a bike if the container is empty" do
+			expect(container.count_bikes).to eq 0
+
+			expect { container.release_bike(working_bike) }.to raise_error(EmptyBoxError)
+		end
+
+		it "should not accept a bike twice" do
+			container.accept_bike(working_bike)
+
+			expect(container.count_bikes).to eq 1
+
+			expect{container.accept_bike(working_bike) }.to raise_error(BikeInclusionError)
+		end
+
+		xit "should only accept bikes" do
+			expect{ container.accept_bike(container) }.to raise_error(IdentityError)
+			expect( container.accept_bike(working_bike)).to eq 1
+		end
+end
+
+
 end

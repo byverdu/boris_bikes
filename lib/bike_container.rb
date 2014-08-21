@@ -1,40 +1,48 @@
+require_relative 'errors' 
+
 module BikeContainer
 
-	DEFAULT_CAPACITY = 10
+	BROKEN_BIKES     = Proc.new{ |bike| bike.broken? }
 
-	def bikes
-		@bikes ||= []
-	end 
+	DEFAULT_CAPACITY = 20
 
-	def capacity
-		@capacity ||= DEFAULT_CAPACITY
+	attr_reader :bikes, :capacity
+
+	def initialize(bikes: [], capacity: DEFAULT_CAPACITY)
+		@bikes    = bikes
+		@capacity = capacity
 	end
 
-	def capacity=(value)
-		@capcity = value
+	def count_bikes 
+		@bikes.count
 	end
 
-	def bike_count
-		bikes.count
+	def accept_bike bike
+
+		raise ReachCapacityError.new("The #{self.class} is full") if full?
+		raise BikeInclusionError.new("The #{bike} already exists") if @bikes.include?(bike)
+		#raise IdentityError.new("Only bikes accepted, #{self.class} not allowed") unless bike.class != Bike
+		
+		@bikes << bike
 	end
 
-	def dock(bike)
-		# if the capacity is reached, raise and exception
-		raise "Station is full" if full?
+	def release_bike bike
 
-		bikes << bike
+		raise EmptyBoxError.new("No bikes to release") unless @bikes.include?(bike)
+
+		@bikes.delete(bike)
+	end
+	
+	def list_working_bikes 
+		@bikes.reject(&BROKEN_BIKES)
 	end
 
-	def release_a_bike(bike)
-		bikes.delete(bike)
+	def list_broken_bikes
+		@bikes.select(&BROKEN_BIKES)
 	end
 
 	def full?
-		bike_count == capacity 
-	end
-
-	def available_bikes
-		bikes.reject {|bike| bike.broken?}	
+		count_bikes == @capacity
 	end
 
 end

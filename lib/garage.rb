@@ -1,23 +1,18 @@
-require_relative 'bike_container'
+require_relative "errors"
+require_relative "bike_container"
 
 class Garage
 
 	include BikeContainer
-
-	def initialize(options = {})
-			
-			self.capacity = options.fetch(:capacity, capacity)
-	end
-
-	alias_method :collect, :dock  
-
+	
 	def collect(bike)
-		
-		bikes << bike
-		
+
+		self.accept_bike(bike)
+
+		raise CollectError.new('This is a working bike!!') unless  bike.broken? 
+
 		bike.fix!
 	end
 
-	
 
 end

@@ -1,12 +1,30 @@
-require "docking_station"
 #require 'bike_container_spec' # only if we are testing a single file
-describe(DockingStation) do
+require 'docking_station'
 
-	it_behaves_like "a bike container"
-	let(:station) {DockingStation.new(:capacity => 10)}
 
-	it "should allow setting default capacity initialising" do
-		expect(station.capacity).to eq(10)
+
+describe DockingStation do
+
+	it_behaves_like 'a bike container'
+
+	let(:station)         { DockingStation.new }
+	let(:working_bike)    { double :bike, broken?: false }
+	let(:broken_bike)     { double :bike, broken?: true}
+
+	xit "should set the location when is initialized" do
+		expect(station.location).to eq('old_street')
+	end
+
+	it 'should not release a broken bike to a person' do
+		station.accept_bike broken_bike
+		station.accept_bike working_bike
+
+		expect(station.release_working_bike ).to eq [working_bike]
 	end
 end
+
+
+
+
+
 
