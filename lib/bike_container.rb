@@ -6,15 +6,28 @@ module BikeContainer
 
 	DEFAULT_CAPACITY = 20
 
-	attr_reader :bikes, :capacity
+	attr_accessor :bikes, :capacity
 
-	def initialize(bikes: [], capacity: DEFAULT_CAPACITY)
-		@bikes    = bikes
+	# def initialize(bikes: [], capacity: DEFAULT_CAPACITY)
+	# 	@bikes    = bikes
+	# 	@capacity = capacity
+	# end
+
+	def initialize(options={})
+
+		@bikes    ||= []
 		@capacity = capacity
+
+		self.capacity = options.fetch(:capacity, DEFAULT_CAPACITY)
+
 	end
 
 	def count_bikes 
 		@bikes.count
+	end
+
+	def get_empty
+		@bikes.clear
 	end
 
 	def accept_bike bike

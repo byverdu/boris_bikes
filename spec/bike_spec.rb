@@ -22,5 +22,14 @@ describe Bike do
 		expect(bike).not_to be_broken
 	end
 
+	it "can have a default serial number" do
+    expect(bike.serial_number).to match(/^\w{3}\s\d{3}-\d{2}-\d{5}/)
+  end
+
+  it "be set with a serial number" do
+    bike = Bike.new({:serial_number => "DDD 111-11-11111"})
+    expect(bike.serial_number).to match(/^\w{3}\s\d{3}-\d{2}-\d{5}/)
+  end
+
 
 end

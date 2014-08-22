@@ -64,6 +64,14 @@ shared_examples 'a bike container' do
 		expect(container.full?).to be(true)
 	end
 
+	it "should be able to be empty" do
+		fill_container container
+
+		container.get_empty
+
+		expect(container.count_bikes).to eql 0
+	end
+
 	context "testing all common errors" do
 
 		it "should not accept a bike when is full" do
