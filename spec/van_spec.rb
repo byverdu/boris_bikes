@@ -28,7 +28,7 @@ describe Van do
 		expect(van.location).to eql(station.location)
 	end
 
-	it "should be able to return to the garage" do
+	xit "should be able to return to the garage" do
 		station = double :station, location: 'cedarne_road'
 		garage  = double :garage,  location: 'old_street'
 		van     = Van.new(location: "old_street")
