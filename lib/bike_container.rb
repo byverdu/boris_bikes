@@ -14,12 +14,11 @@ module BikeContainer
 	# end
 
 	def initialize(options={})
-
+		
 		@bikes          ||= []
-		@location       = location
 
-		@capacity       = options.fetch(:capacity, DEFAULT_CAPACITY)
-		self.location   = options.fetch(:location, location)
+		@capacity   = options.fetch(:capacity, DEFAULT_CAPACITY)
+		@location   = options.fetch(:location, location)
 	end
 
 	def count_bikes 
