@@ -1,6 +1,8 @@
 class Bike
 
-	attr_reader :serial_number
+	attr_reader :serial_number#, :location
+
+	$bikes = []
 	
 	def serial_number_generator
 		sn = ("A".."Z").to_a.sample(3).join
@@ -11,8 +13,9 @@ class Bike
 	end
 
 	def initialize(serial_number: serial_number_generator)
-		@broken = false
+		@broken        = false
 		@serial_number = serial_number
+		#@location      = location
 	end
 
 	def broken?
@@ -26,4 +29,9 @@ class Bike
 	def fix!
 		@broken = false
 	end
+
+	def store_serial_number
+		$bikes << {:serial_number => @serial_number}
+	end
 end
+

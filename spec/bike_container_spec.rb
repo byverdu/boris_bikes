@@ -47,7 +47,6 @@ shared_examples 'a bike container' do
 
 			expect(container.count_bikes).to eql 0
 		end
-
 	end
 
 	context "query methods" do
