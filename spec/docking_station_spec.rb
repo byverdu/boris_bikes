@@ -7,13 +7,9 @@ describe DockingStation do
 
 	it_behaves_like 'a bike container'
 
-	let(:station)         { DockingStation.new() }
+	let(:station)         { DockingStation.new}
 	let(:working_bike)    { double :bike, broken?: false }
 	let(:broken_bike)     { double :bike, broken?: true}
-
-	it "should set the location when is initialized" do
-		expect(station.location).to eq('old_street')
-	end
 
 	it 'should not release a broken bike to a person' do
 		station.accept_bike broken_bike

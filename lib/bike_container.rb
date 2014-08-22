@@ -6,7 +6,7 @@ module BikeContainer
 
 	DEFAULT_CAPACITY = 20
 
-	attr_accessor :bikes, :capacity
+	attr_accessor :bikes, :capacity, :location 
 
 	# def initialize(bikes: [], capacity: DEFAULT_CAPACITY)
 	# 	@bikes    = bikes
@@ -15,11 +15,11 @@ module BikeContainer
 
 	def initialize(options={})
 
-		@bikes    ||= []
-		@capacity = capacity
+		@bikes          ||= []
+		@location       = location
 
-		self.capacity = options.fetch(:capacity, DEFAULT_CAPACITY)
-
+		@capacity       = options.fetch(:capacity, DEFAULT_CAPACITY)
+		self.location   = options.fetch(:location, location)
 	end
 
 	def count_bikes 
@@ -34,7 +34,7 @@ module BikeContainer
 
 		raise ReachCapacityError.new("The #{self.class} is full") if full?
 		raise BikeInclusionError.new("The #{bike} already exists") if @bikes.include?(bike)
-		#raise IdentityError.new("Only bikes accepted, #{self.class} not allowed") unless bike.class != Bike
+		#raise IdentityError.new("Only bikes accepted, #{self.class} not allowed") if bike.class != Bike
 		
 		@bikes << bike
 	end

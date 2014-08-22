@@ -10,68 +10,84 @@ shared_examples 'a bike container' do
 		container.capacity.times{container.accept_bike(Bike.new)}
 	end
 
+	context "should be initialized when class is created" do
+
+		it "has no bikes when is initialized" do
+			expect(container.bikes).to eql []
+		end
+
+		it "should have a default capacity" do
+			expect(container.capacity).to eq 20
+		end
+
+		it 'can be set to have a custom capacity' do
+			container = described_class.new(capacity: 30)
+			expect(container.capacity).to eq 30
+		end
+
+		it "should set the location when is initialized" do
+			station = described_class.new(location: 'old_street')
+			expect(station.location).to eq('old_street')
+		end
 	
-	it "has no bikes when is initialized" do
-		expect(container.bikes).to eql []
 	end
 
-	it "should have a default capacity" do
-		expect(container.capacity).to eq 20
+	context "action methods" do
+
+		it "should be able to dock a bike" do
+			container.accept_bike working_bike
+
+			expect(container.count_bikes).to eql 1
+		end
+
+		it "should be able to release a bike" do
+			container.accept_bike working_bike		
+
+			container.release_bike working_bike
+
+			expect(container.count_bikes).to eql 0
+		end
+
 	end
 
-	it 'can be set to have a custom capacity' do
-		container = described_class.new(capacity: 30)
-		expect(container.capacity).to eq 30
+	context "query methods" do
+
+		it "should know how many bikes contains" do
+			container.accept_bike working_bike
+				
+			expect(container.count_bikes).to eql 1
+		end
+
+		it "should be able to give a list of all working bikes" do
+			container.accept_bike working_bike
+			container.accept_bike broken_bike
+
+			expect(container.list_working_bikes).to eq([working_bike])
+		end
+
+		it "should be able to give a list of all broken bikes" do
+			container.accept_bike working_bike
+			container.accept_bike broken_bike
+
+			expect(container.list_broken_bikes).to eq([broken_bike])
+		end
+
+		it "should know when it is full" do
+			fill_container container
+
+			expect(container.full?).to be(true)
+		end
+
+		it "should be able to be empty" do
+			fill_container container
+
+			container.get_empty
+
+			expect(container.count_bikes).to eql 0
+		end
+
 	end
-
-	it "should know how many bikes contains" do
-		container.accept_bike working_bike
-			
-		expect(container.count_bikes).to eql 1
-	end
-
-	it "should be able to dock a bike" do
-		container.accept_bike working_bike
-
-		expect(container.count_bikes).to eql 1
-	end
-
-	it "should be able to release a bike" do
-		container.accept_bike working_bike		
-
-		container.release_bike working_bike
-
-		expect(container.count_bikes).to eql 0
-	end
-
-	it "should be able to give a list of all working bikes" do
-		container.accept_bike working_bike
-		container.accept_bike broken_bike
-
-		expect(container.list_working_bikes).to eq([working_bike])
-	end
-
-	it "should be able to give a list of all broken bikes" do
-		container.accept_bike working_bike
-		container.accept_bike broken_bike
-
-		expect(container.list_broken_bikes).to eq([broken_bike])
-	end
-
-	it "should know when it is full" do
-		fill_container container
-
-		expect(container.full?).to be(true)
-	end
-
-	it "should be able to be empty" do
-		fill_container container
-
-		container.get_empty
-
-		expect(container.count_bikes).to eql 0
-	end
-
+	
 	context "testing all common errors" do
 
 		it "should not accept a bike when is full" do
