@@ -1,6 +1,12 @@
 require 'bike'
+require 'timecop'
 
 describe Bike do
+
+	# before do
+	# 	t = Time.local(1985, 10, 26, 1, 21, 0)
+	# 	Timecop.freeze(t)
+	# end
 
 	let(:bike)    { Bike.new }
 	let(:station) { double :station  }
@@ -38,14 +44,23 @@ describe Bike do
 		expect(bike.store_serial_number).to eql [{ :serial_number => bike.serial_number}]
 	end
 
+	it "should trigger a timer when a bike is released" do
+		Timecop.freeze(Time.local(2014,8,23,10,00))		
 
+		#travel_time = Timecop.travel(Time.local(2014,8,23,10,30))
+
+		expect(station).to receive(:release_working_bike).and_return(bike)
+		
+		station.release_working_bike 
+
+		expect(bike.rent_at).to eql(Time.now)
+	end
+
+	xit "should raise an error if the user have the bike more than 30 minutes" do
+
+
+	end
+	# after do
+	# 	Timecop.return
 	# end
-	# xit "every serial number should be unique" do
-	# 	bike   = Bike.new({:serial_number => "DDD 111-11-11111"})
-	# 	bike_2 = Bike.new({:serial_number => "DDD 111-11-11111"})
-
-	# 	expect(bike.serial_number).not_to eql(bike_2.serial_number)
-
-	# end
-
 end
