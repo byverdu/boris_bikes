@@ -1,7 +1,10 @@
 class Person
 
-	def initialize bike=nil
+	attr_accessor :name
+
+	def initialize(bike=nil,name)
 		@bike = bike
+		@name = name
 	end
 
 	def has_bike?
