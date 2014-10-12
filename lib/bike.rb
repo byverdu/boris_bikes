@@ -1,7 +1,7 @@
 class Bike
 
 	attr_reader   :serial_number
-	attr_accessor :rent_time
+	attr_accessor :rent_time, :return_time
 
 	$bikes = []
 	
@@ -16,11 +16,14 @@ class Bike
 	def initialize(serial_number: serial_number_generator)
 		@broken        = false
 		@serial_number = serial_number
-		#@rent_till		 = rent_till
 	end
 
 	def rent_time
 		@rent_time = Time.now
+	end
+
+	def return_time
+		@return_time = Time.now
 	end
 
 	def broken?

@@ -20,7 +20,8 @@ class Person
 	end
 
 	def return_bike station
-		station.accept_bike @bike
+		@bike.return_time
+		station.accept_bike @bike 
 		@bike = nil
 	end
 

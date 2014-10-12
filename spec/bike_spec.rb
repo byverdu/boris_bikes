@@ -49,14 +49,15 @@ describe Bike do
 		expect(bike.rent_time).to eql(Time.now)
 	end
 
-	xit "should trigger a timer when a bike is returned" do
-		Timecop.freeze(Time.local(2014,8,23,10,30))		
+	it "should trigger a timer when a bike is returned" do
+		Timecop.freeze(Time.local(2014,8,23,10,30))	
 
-		expect(station).to receive(:release_working_bike).and_return(bike)
-		
-		station.release_working_bike 
+		expect(station).to receive(:accept_bike).and_return(bike)
 
-		expect(bike.rent_time).to eql(Time.now)
+		station.accept_bike bike 
+
+		expect(bike.return_time).to eql(Time.now)
+		puts bike.return_time
 	end
 
 	it "should raise an error if the user have the bike more than 30 minutes" do

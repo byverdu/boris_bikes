@@ -41,6 +41,7 @@ describe Person do
 
  	it "can return the bike to the docking station" do
  		allow(station).to receive(:accept_bike)
+ 		expect(bike).to receive(:return_time).and_return(Time.now)
 
  		person_with_bike.return_bike station
 
