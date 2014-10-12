@@ -1,7 +1,7 @@
 class Bike
 
 	attr_reader   :serial_number
-	attr_accessor :rent_at
+	attr_accessor :rent_time
 
 	$bikes = []
 	
@@ -19,8 +19,8 @@ class Bike
 		#@rent_till		 = rent_till
 	end
 
-	def rent_at
-		@rent_at = Time.now
+	def rent_time
+		@rent_time = Time.now
 	end
 
 	def broken?

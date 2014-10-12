@@ -4,7 +4,7 @@ shared_examples 'a bike container' do
 
 	let(:container)       { described_class.new } # described_class is our model class
 	let(:working_bike)    { double :bike, broken?: false }
-	let(:broken_bike)     { double :bike, broken?: true}
+	let(:broken_bike)     { double :bike, broken?: true  }
 
 	def fill_container container
 		container.capacity.times{container.accept_bike(Bike.new)}
@@ -109,10 +109,6 @@ shared_examples 'a bike container' do
 			expect{container.accept_bike(working_bike) }.to raise_error(BikeInclusionError)
 		end
 
-		xit "should only accept bikes" do
-			expect{ container.accept_bike(container) }.to raise_error(IdentityError)
-			expect( container.accept_bike(working_bike)).to eq 1
-		end
 end
 
 

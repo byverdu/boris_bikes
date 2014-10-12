@@ -33,7 +33,6 @@ module BikeContainer
 
 		raise ReachCapacityError.new("The #{self.class} is full") if full?
 		raise BikeInclusionError.new("The #{bike} already exists") if @bikes.include?(bike)
-		#raise IdentityError.new("Only bikes accepted, #{self.class} not allowed") if bike.class != Bike
 		
 		@bikes << bike
 	end
