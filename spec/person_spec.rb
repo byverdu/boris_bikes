@@ -24,7 +24,6 @@ describe Person do
 	end
 
 	it "can break a bike" do
-		#person = Person.new(bike)
 		expect(bike).to receive(:break!).and_return(true)
 		expect(bike).to receive(:broken?).and_return(true)
 		person_with_bike.falls_down!
