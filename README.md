@@ -4,8 +4,6 @@ Barclays Cycle Hire is a public bicycle hire scheme in London, United Kingdom. T
 
 The scheme will keep track of a number of docking stations and the bikes. It will allow users to rent the bikes and return them. Occasionally the bikes will break and then they will be unavailable for rental. There will also be a garage to fix the bikes and a van to move the bikes between the stations and the garage.
 
-Exercise for testing RSpec in a TDD way for the rental service of the Boris bikes.
-
 ### Objectives
 
 1. Use Object-Oriented Design (OOD) and Object-Oriented Programming (OOP).
