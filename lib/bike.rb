@@ -18,12 +18,19 @@ class Bike
 		@serial_number = serial_number
 	end
 
-	def rent_time
-		@rent_time = Time.now
+	def rent!
+		@rent_time = Time.now.round(0)
 	end
 
-	def return_time
-		@return_time = Time.now
+	def return!
+		@return_time = Time.now.round(0)
+
+		raise "You have to pay!" if  seconds_rented > 1800
+
+	end
+
+	def seconds_rented
+		@return_time - @rent_time
 	end
 
 	def broken?

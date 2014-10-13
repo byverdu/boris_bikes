@@ -1,5 +1,5 @@
 require 'bike'
-require 'timecop'
+require 'Timecop'
 
 describe Bike do
 
@@ -40,29 +40,33 @@ describe Bike do
 	end
 
 	it "should trigger a timer when a bike is released" do
-		Timecop.freeze(Time.local(2014,8,23,10,00))		
-
-		expect(station).to receive(:release_working_bike).and_return(bike)
+		time = Time.now.round(0)
+		bike.rent!
 		
-		station.release_working_bike 
-
-		expect(bike.rent_time).to eql(Time.now)
+		expect(bike.rent_time).to eq time	
 	end
 
 	it "should trigger a timer when a bike is returned" do
-		Timecop.freeze(Time.local(2014,8,23,10,30))	
-
-		expect(station).to receive(:accept_bike).and_return(bike)
-
-		station.accept_bike bike 
-
-		expect(bike.return_time).to eql(Time.now)
-		puts bike.return_time
+		bike.rent!
+		time = Time.now.round(0)
+		bike.return!
+		
+		expect(bike.return_time).to eq time	
+	end
+	
+	it "should know it has been gone for 1801 seconds" do 
+		bike.rent!
+		Timecop.travel(1801)
+		
+		expect { bike.return! }.to raise_error RuntimeError
+		expect(bike.seconds_rented).to eq 1801
 	end
 
 	it "should raise an error if the user have the bike more than 30 minutes" do
-
-
+		bike.rent!
+		Timecop.travel(1801)
+		
+		expect{ bike.return! }.to raise_error(RuntimeError, "You have to pay!")
+		expect(bike.seconds_rented).to eq 1801
 	end
-
 end
