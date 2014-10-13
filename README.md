@@ -51,7 +51,7 @@ old_street = DockingStation.new
 victoria   = Garage.new
 ```
 
-### Possible methods Bike
+### Possible methods Person
 
 ```ruby
 # Person.new(name)
@@ -64,7 +64,7 @@ Person.falls_down! # breaks bike
 Person.return_bike station 
 ```
 
-### Possible methods Person
+### Possible methods Bike
 
 ```ruby
 # Bike.new
