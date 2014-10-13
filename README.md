@@ -51,10 +51,10 @@ old_street = DockingStation.new
 victoria   = Garage.new
 ```
 
-### Possible methods
+### Possible methods Person
 
 ```ruby
-# Person.new
+# Person.new(name)
 Person.has_bike? # true or false
 
 Person.rent_from_station station 
@@ -64,6 +64,32 @@ Person.falls_down! # breaks bike
 Person.return_bike station 
 ```
 
+### Possible methods Person
+
+```ruby
+# Bike.new
+
+Bike.broken? # false
+
+Bike.serial_number # "HFU 623-98-89230"
+
+Bike.break! # broken = true
+Bike.fix!   # broken = false
+
+Bike.rent!   # @rent_time
+Bike.return! # @return_time
+```
+
+### Possible methods for module BikeContainer
+
+```ruby
+
+# Common functionality for:
+# DockingStation, Garage, Van
+
+
+
+```
 
 
 
