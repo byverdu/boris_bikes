@@ -83,13 +83,70 @@ Bike.return! # @return_time
 ### Possible methods for module BikeContainer
 
 ```ruby
-
 # Common functionality for:
 # DockingStation, Garage, Van
 
+self.count_bikes
 
+self.get_empty 
+
+self.accept_bike bike
+
+self.release_bike bike
+
+self.list_working_bikes
+
+self.list_broken_bikes
+
+self.full?
 
 ```
+##### DockingStation methods
+
+```ruby
+DockingStation.release_working_bike
+```
+
+##### Garage methods
+
+```ruby
+Garage.collect bike # calls bike.fix!
+```
+
+##### Van methods
+
+```ruby
+Van.move_to station_location
+Van.return_to garage_location
+```
+
+## Demo user interaction
+
+```ruby
+al            = Person.new('Albert')
+regent_street = DockingStation.new(location: 'Regents Street')
+old_street    = DockingStation.new(location: 'Old Street')
+garage        = Garage.new(location: 'Victoria')
+van           = Van.new(location: 'Victoria')
+bike          = Bike.new()
+
+regent_street.accept_bike bike
+
+al.rent_from_station regent_street
+
+al.falls_down! # calls bike.break!
+
+al.return_bike old_street
+
+van.move_to old_street
+
+van.release_bike bike
+
+van.return_to garage # calls bike.fix!
+```
+
+
+
 
 
 
