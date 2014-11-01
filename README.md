@@ -2,7 +2,7 @@
 
 Barclays Cycle Hire is a public bicycle hire scheme in London, United Kingdom. The scheme's bicycles are popularly known as Boris Bikes, after Boris Johnson, who was the Mayor of London when the scheme was launched.
 
-The scheme will keep track of a number of docking stations and the bikes. It will allow users to rent the bikes and return them. Occasionally the bikes will break and then they will be unavailable for rental. There will also be a garage to fix the bikes and a van to move the bikes between the stations and the garage.
+The scheme will keep track of a number of docking stations and bikes. It will allow users to rent the bikes and return them. Occasionally the bikes will break and then they will be unavailable for rental. There will also be a garage to fix the bikes and a van to move the bikes between the stations and the garage.
 
 ### Objectives
 
